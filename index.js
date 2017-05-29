@@ -1,5 +1,5 @@
-let $ = require("jquery")
+window.$ = window.jQuery = require('jquery')
+require('bootstrap')
+require('./style.css')
 
-$(document).ready(() => {
-    $("#abstruse-section").text("The journey of a thousand miles begins with one step.")
-})
+require('./x-controller.js')()

@@ -6,18 +6,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify index.js -o bundle.js -t babelify",
+    "build": "browserify index.js -o bundle.js -t babelify -t browserify-css",
     "gh-pages": "rm -rf dist && mkdir dist && npm install && npm run build && cp index.html bundle.js dist/ && gh-pages -d dist"
   },
-  "author": "Me",
+  "author": "sntp",
   "license": "MIT",
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify": "latest",
+    "browserify-css": "^0.10.1",
     "gh-pages": "^1.0.0"
   },
   "dependencies": {
-    "jquery": "3.2.1"
+    "bootstrap": "^3.3.7",
+    "flot": "^0.8.0-alpha",
+    "jquery": "3.2.1",
+    "underscore": "^1.8.3"
   }
 }
