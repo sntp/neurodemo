@@ -2,10 +2,221 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Neurodemo - Demonstration of neural networks</title>
+        <title>Демонстрация работы нейронных сетей</title>
         <script src="bundle.js"></script>
     </head>
     <body>
-        <h1 id="abstruse-section"></h1>
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Линейная классификация</a></li>
+                        <li class="active"><a href="#">Логический операции</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div id="xor-view">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-9" id="x-graph-section">
+                                <canvas id="x-graph">
+                                    
+                                </canvas>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Результат</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>A</th>
+                                                    <th>B</th>
+                                                    <th>A <span class="x-operation">(?)</span> B</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                    <td id="x-res-00">0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>0</td>
+                                                    <td>1</td>
+                                                    <td id="x-res-01">1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>0</td>
+                                                    <td id="x-res-10">1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                    <td id="x-res-11">0</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row conrol-row">
+                            <div class="col-md-4" id="x-table-section">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Обучающая выборка</h3>
+                                    </div>
+                                    <div class="panel-body no-padding-bottom">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>A</th>
+                                                    <th>B</th>
+                                                    <th>A <span class="x-operation">(?)</span> B</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="x-train-set-entry" id="x-entry--1-1">
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                    <td >
+                                                        <select class="form-control input-xs x-answer" id="x-set-00" data-x-entry-id="0">
+                                                            <option value="-1" selected>-1</option>
+                                                            <option value="1">1</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr class="x-train-set-entry" id="x-entry--11">
+                                                    <td>0</td>
+                                                    <td>1</td>
+                                                    <td >
+                                                        <select class="form-control input-xs x-answer" id="x-set-01" data-x-entry-id="1">
+                                                            <option value="-1">-1</option>
+                                                            <option value="1" selected>1</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr class="x-train-set-entry" id="x-entry-1-1">
+                                                    <td>1</td>
+                                                    <td>0</td>
+                                                    <td >
+                                                        <select class="form-control input-xs x-answer" id="x-set-10" data-x-entry-id="2">
+                                                            <option value="-1">-1</option>
+                                                            <option value="1" selected>1</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr class="x-train-set-entry" id="x-entry-11">
+                                                    <td>1</td>
+                                                    <td>1</td>
+                                                    <td >
+                                                        <select class="form-control input-xs x-answer" id="x-set-11" data-x-entry-id="3">
+                                                            <option value="-1" selected>-1</option>
+                                                            <option value="1">1</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8" id="x-correction-section">
+                                <div class="row">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Параметры</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="x-neurons">Количество нейронов в скрытом слое <span id="x-neurons-badge" class="badge">3</span></label>
+                                                    <input type="range" 
+                                                           id="x-neurons"
+                                                           min="1"
+                                                           max="5"
+                                                           step="1"
+                                                           value="3" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="x-speed">Скорость обучения <span id="x-speed-badge" class="badge">1</span></label>
+                                                    <input type="range" 
+                                                           id="x-speed"
+                                                           min="0.1"
+                                                           max="2"
+                                                           step="0.1"
+                                                           value="1" />
+                                                </div>   
+                                                <div class="form-group">
+                                                    <label for="x-lambda">Крутизна функции активации <span id="x-lambda-badge" class="badge">2</span></label>
+                                                    <input type="range" 
+                                                           id="x-lambda"
+                                                           min="2"
+                                                           max="15"
+                                                           step="0.1"
+                                                           value="2" />
+                                                </div> 
+                                            </div>   
+                                            <div class="col-md-6">
+                                                <div id="x-activation-function"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="x-config-section">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title inline">Обучение</h3>
+                                <div class="control-group inline pull-right">
+                                    <button id="x-reset" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-refresh"></span> Сброс</button>
+                                    <button id="x-step" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-play"></span> Шаг</button>
+                                    <button id="x-run" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-fast-forward"></span> Запуск</button>
+                                </div>
+                            </div>
+                        
+                            <div class="panel-body" id="x-config-body">
+                                <div id="x-error-message" class="alert alert-danger" role="alert" style="display: none;"></div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>Шаг: <span id="x-step-number">0</span></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        Скрытый слой:
+                                        <div id="x-hidden-weights"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        Внешний слой:
+                                        <div id="x-output-weights"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>Входные значения: <span id="x-input"></span></p>
+                                        <p>Выходное значение: <span id="x-actual"></span></p>
+                                        <p>Ожидаемое значение: <span id="x-expected"></span></p>
+                                        <p>Ошибка: <span id="x-error"></span></p>
+                                        <p>Коррекция весов внешнего слоя:</p>
+                                        <p id="x-output-adjustments"></p>
+                                        <p>Коррекция весов скрытого слоя:</p>
+                                        <p id="x-hidden-adjustments"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
