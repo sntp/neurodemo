@@ -145,7 +145,7 @@
                                                            value="3" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="x-speed">Скорость обучения <span id="x-speed-badge" class="badge">1</span></label>
+                                                    <label for="x-speed">Скорость обучения µ <span id="x-speed-badge" class="badge">1</span></label>
                                                     <input type="range" 
                                                            id="x-speed"
                                                            min="0.1"
@@ -202,14 +202,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <p>Входные значения: <span id="x-input"></span></p>
-                                        <p>Выходное значение: <span id="x-actual"></span></p>
-                                        <p>Ожидаемое значение: <span id="x-expected"></span></p>
-                                        <p>Ошибка: <span id="x-error"></span></p>
+                                        <p>Входные значения <sub>I</sub>: <i><span id="x-input"></span></i></p>
+                                        <p>Выходное значение <i>O</i>: <i><span id="x-actual"></span></i></p>
+                                        <p>Ожидаемое значение <i>O<sub>ожид</sub></i>: <i><span id="x-expected"></span></i></p>
+                                        <p>Ошибка <i>e = O - O<sub>ожид</sub></i>: <i><span id="x-error"></span></i></p>
                                         <p>Коррекция весов внешнего слоя:</p>
-                                        <p id="x-output-adjustments"></p>
+                                        <p><b><i>W<sub>o<sub>i</sub></sub> = W<sub>o<sub>i</sub></sub> - µ ∙ e ∙ O<sub>h<sub>i</sub></sub></i></b></p>
+                                        <i><p id="x-output-adjustments"></p></i>
                                         <p>Коррекция весов скрытого слоя:</p>
-                                        <p id="x-hidden-adjustments"></p>
+                                        <p><b><i>W<sub>h<sub>i</sub></sub> = W<sub>h<sub>i</sub></sub> - µ ∙ e ∙ (1 - O<sup>2</sup><sub>h<sub>i</sub></sub>) ∙ W<sub>o<sub>i</sub></sub> ∙ I<sub>i</sub></i></b></p>
+                                        <i><p id="x-hidden-adjustments"></p></i>
                                     </div>
                                 </div>
                             </div>

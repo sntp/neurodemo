@@ -17101,6 +17101,8 @@ module.exports = function () {
                 $('.x-operation').text('∨');
             } else if (trainSet[0][1] == 1 && trainSet[1][1] == 1 && trainSet[2][1] == -1 && trainSet[3][1] == 1) {
                 $('.x-operation').text('→');
+            } else if (trainSet[0][1] == 1 && trainSet[1][1] == -1 && trainSet[2][1] == -1 && trainSet[3][1] == 1) {
+                $('.x-operation').text('≡');
             } else {
                 $('.x-operation').text('(op)');
             }
@@ -17377,7 +17379,7 @@ var XorNN = function () {
                 xor = this.activate(hiddenOutputs, this.outputWeights),
                 error = xor - expectedValue;
 
-            this.trainLog.input = input;
+            this.trainLog.input = input.join(', ');
             this.trainLog.expected = expectedValue;
             this.trainLog.actual = xor.toFixed(2);
             this.trainLog.error = f(xor) + ' - ' + f(expectedValue) + ' = ' + error.toFixed(2);
@@ -17388,7 +17390,7 @@ var XorNN = function () {
                 // Adjust output weights
                 for (var i = 0; i < this.outputWeights.length; i++) {
                     var dw = this.speed * error * hiddenOutputs[i],
-                        adjustmentLog = '<i>W<sub>h' + (i + 1) + 'o</sub> = ' + f(this.outputWeights[i]) + ' - ' + this.speed + ' * ' + f(error) + ' * ' + f(hiddenOutputs[i]) + ' = ' + f(this.outputWeights[i] - dw) + '</i>';
+                        adjustmentLog = 'W<sub>h' + (i + 1) + 'o</sub> = ' + f(this.outputWeights[i]) + ' - ' + this.speed + ' * ' + f(error) + ' * ' + f(hiddenOutputs[i]) + ' = ' + f(this.outputWeights[i] - dw);
                     this.trainLog.outputAdjustments.push(adjustmentLog);
                     this.outputWeights[i] -= dw;
                 }
@@ -17398,7 +17400,7 @@ var XorNN = function () {
                 for (var _i = 0; _i < this.hiddenNeuronsCount; _i++) {
                     for (var j = 0; j < this.inputCount; j++) {
                         var _dw = this.speed * error * (1 - Math.pow(hiddenOutputs[_i], 2)) * this.outputWeights[_i] * input[j],
-                            _adjustmentLog = '<i>W<sub>' + inputLabels[j] + 'h' + (_i + 1) + '</sub> = ' + f(this.hiddenNeurons[_i][j]) + ' - ' + f(this.speed) + ' * ' + f(error) + ' * (1 - ' + f(hiddenOutputs[_i]) + '<sup>2</sup>) * ' + f(this.outputWeights[_i]) + ' * ' + f(input[j]) + ' = ' + f(this.hiddenNeurons[_i][j] - _dw) + '</i>';
+                            _adjustmentLog = 'W<sub>' + inputLabels[j] + 'h' + (_i + 1) + '</sub> = ' + f(this.hiddenNeurons[_i][j]) + ' - ' + f(this.speed) + ' * ' + f(error) + ' * (1 - ' + f(hiddenOutputs[_i]) + '<sup>2</sup>) * ' + f(this.outputWeights[_i]) + ' * ' + f(input[j]) + ' = ' + f(this.hiddenNeurons[_i][j] - _dw);
                         this.trainLog.hiddenAdjustments.push(_adjustmentLog);
                         this.hiddenNeurons[_i][j] -= _dw;
                     }
